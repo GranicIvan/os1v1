@@ -20,7 +20,31 @@ public class Test {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
 //		spil.stampaj();
-		testIgre();
+//		testIgre();
+		
+		
+		
+		Takmicari takmicari = new Takmicari();
+		
+		Spil spil = new Spil();
+		spil.promesaj();
+		
+		takmicari.napraviIgrace();
+		
+		
+		
+		
+		do {
+			
+			takmicari.dodeliKarte(spil);
+			
+			takmicari.izracunajPobednike();
+			
+			
+		} while (takmicari.igraci.size() > 1);
+		
+		
+		System.out.println("\n\nPobednik je: " + takmicari.igraci.get(0));
 		
 		
 		

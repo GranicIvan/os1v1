@@ -2,6 +2,10 @@ package p1;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Takmicari {
 
@@ -19,29 +23,46 @@ public class Takmicari {
 	}
 	
 	
-	public ArrayList<Igrac> vratiPobednike(){
+	public void izracunajPobednike(){
+				
+		Collections.sort(igraci,Collections.reverseOrder());
+		final Igrac pom = igraci.get(0);
 		
-		ArrayList<Igrac> pobednici = new ArrayList<Igrac>();
+		List lista = igraci.stream()
+				.filter(o -> o.getKarta().getRang().equals(pom.getKarta().getRang()) )
+				.collect(Collectors.toList());
 		
-		Igrac pom = new Igrac();
+		igraci = new ArrayList<Igrac>(lista);
+				
 		
-		pom = igraci.remove(0);
 		
-		pobednici.add(pom);
-		
-		//prolazimo kroz preostale igrace
-		for(int j = 0; j < igraci.size() ; j++) {
+		System.out.println("\nPreostali rakmicari su: ");
+		for(Igrac i : igraci) {
+			System.out.print(i+", ");
+		}
 			
+	}//izracunaj
+	
+	
+	public void dodeliKarte(Spil s) {
+		System.out.println("\n ----- NOVO IZVLACENJE -----");
+		s.promesaj();
+
+		for(Igrac ig : igraci) {
+			ig.setKarta(s.uzmiOdGore());
+			System.out.println(ig.getIme() + " je izvukao/la " + ig.getKarta());
+		}
+		System.out.println();
+	}//dodeliKarte
+	
+	
+	public void napraviIgrace() {
+		
+		for(Ime i : Ime.values()) {
+			igraci.add( new Igrac(i,null));
 		}
 		
-		//kako da iteriram igrace
-		//while( pom.compareTo(igraci) == 0)
-		
-		
-		
-		
-		return null;
-	}//vratiPobednike
+	}//napraviIgraceIDodajKarte
 	
 	
 }
